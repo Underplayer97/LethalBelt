@@ -57,16 +57,22 @@
 
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
-        <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
+        <HintPath>..\LethalCoreFiles\Assembly-CSharp.dll</HintPath>
       </Reference>
       <Reference Include="LethalCompanyInputUtils">
-        <HintPath>C:\Users\under\AppData\Roaming\Thunderstore Mod Manager\DataFolder\LethalCompany\profiles\Lethal Belt Mod Dev\BepInEx\plugins\Rune580-LethalCompany_InputUtils\LethalCompanyInputUtils\LethalCompanyInputUtils.dll</HintPath>
+        <HintPath>..\LethalModReferences\LethalCompanyInputUtils\LethalCompanyInputUtils.dll</HintPath>
+      </Reference>
+      <Reference Include="LethalLib">
+        <HintPath>..\LethalModReferences\LethalLib\LethalLib.dll</HintPath>
+      </Reference>
+      <Reference Include="ReservedItemSlotCore">
+        <HintPath>..\LethalModReferences\ReservedItemSlotCore.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
-        <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.dll</HintPath>
+        <HintPath>..\LethalCoreFiles\UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
-        <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        <HintPath>..\LethalCoreFiles\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>
