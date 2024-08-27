@@ -1,22 +1,15 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using LobbyCompatibility.Attributes;
-using LobbyCompatibility.Enums;
 
-namespace LethalBelt
-{
+namespace LethalBelt {
     [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
-    [BepInDependency("BMX.LobbyCompatibility", BepInDependency.DependencyFlags.HardDependency)]
-    [LobbyCompatibility(CompatibilityLevel.Everyone, VersionStrictness.None)]
-    public class LethalBelt : BaseUnityPlugin
-    {
+    public class LethalBelt : BaseUnityPlugin {
         public static LethalBelt Instance { get; private set; } = null!;
         internal new static ManualLogSource Logger { get; private set; } = null!;
         internal static Harmony? Harmony { get; set; }
 
-        private void Awake()
-        {
+        private void Awake() {
             Logger = base.Logger;
             Instance = this;
 
@@ -25,8 +18,7 @@ namespace LethalBelt
             Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has loaded!");
         }
 
-        internal static void Patch()
-        {
+        internal static void Patch() {
             Harmony ??= new Harmony(MyPluginInfo.PLUGIN_GUID);
 
             Logger.LogDebug("Patching...");
@@ -36,8 +28,7 @@ namespace LethalBelt
             Logger.LogDebug("Finished patching!");
         }
 
-        internal static void Unpatch()
-        {
+        internal static void Unpatch() {
             Logger.LogDebug("Unpatching...");
 
             Harmony?.UnpatchSelf();
