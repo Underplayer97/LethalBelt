@@ -47,7 +47,8 @@
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" PrivateAssets="all" />
         <PackageReference Include="LethalCompany.GameLibs.Steam" Version="*-*" PrivateAssets="all" />
         <PackageReference Include="UnityEngine.Modules" Version="6000.0.16" IncludeAssets="compile" PrivateAssets="all" />
-	    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
+	    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />	    
+		<PackageReference Include="Rune580.Mods.LethalCompany.InputUtils" Version="0.7.3" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -57,6 +58,9 @@
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
         <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="LethalCompanyInputUtils">
+        <HintPath>C:\Users\under\AppData\Roaming\Thunderstore Mod Manager\DataFolder\LethalCompany\profiles\Lethal Belt Mod Dev\BepInEx\plugins\Rune580-LethalCompany_InputUtils\LethalCompanyInputUtils\LethalCompanyInputUtils.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
         <HintPath>E:\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.dll</HintPath>

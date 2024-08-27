@@ -4,6 +4,8 @@ using HarmonyLib;
 
 namespace LethalBelt {
     [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+    [BepInDependency("com.rune580.LethalCompanyInputUtils", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("FlipMods.ReservedItemSlotCore", BepInDependency.DependencyFlags.HardDependency)]
     public class LethalBelt : BaseUnityPlugin {
         public static LethalBelt Instance { get; private set; } = null!;
         internal new static ManualLogSource Logger { get; private set; } = null!;
