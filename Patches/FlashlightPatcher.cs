@@ -32,7 +32,7 @@ namespace LethalBelt.Patches {
 
         }   
         public static FlashlightItem GetReservedFlashlight(PlayerControllerB playerController) => SessionManager.
-            TryGetUnlockedItemSlotData(LethalBelt.beltSlotData.slotName, out var itemSlot) && ReservedPlayerData.allPlayerData.
+            TryGetUnlockedItemSlotData(LethalBelt.utilitySlotData1.slotName, out var itemSlot) && ReservedPlayerData.allPlayerData.
             TryGetValue(playerController, out var playerData) ? playerData.GetReservedItem(itemSlot) as FlashlightItem : null;
         public static FlashlightItem GetCurrentlySelectedFlashlight(PlayerControllerB playerController) => playerController.
             currentItemSlot >= 0 && playerController.currentItemSlot < playerController.ItemSlots.Length ? playerController?.

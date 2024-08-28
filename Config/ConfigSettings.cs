@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using LethalLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,18 @@ namespace LethalBelt.Config {
         public static ConfigEntry<int> overridePurchasePrice;
         public static ConfigEntry<string> additionalItemsInSlot;
 
+        public static ConfigEntry<int> numUtilitySlots;
+        public static ConfigEntry<int> overrideExtraAmmoSlotPriceIncrease;
+        public static ConfigEntry<string> removeItemsFromSlot;
+
+        public static ConfigEntry<bool> disableUtilitySlot;
+        public static ConfigEntry<bool> addKeySlot;
+        public static ConfigEntry<int> overrideKeySlotPriority;
+        public static ConfigEntry<int> overrideKeySlotPrice;
+        public static ConfigEntry<string> addAdditionalItemsToKeySlot;
+        public static ConfigEntry<bool> moveLockpickerToKeySlot;
+        public static ConfigEntry<float> sprayPaintCapacityMultiplier;
+
         public static Dictionary<string, ConfigEntryBase> currentConfigEntries = new Dictionary<string, ConfigEntryBase>();
 
         public static void BindConfigSettings() {
@@ -20,6 +33,22 @@ namespace LethalBelt.Config {
             overrideItemSlotPriority = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "FlashlightSlotPriorityOverride", 200, "[Host] Manually set the priority for this item slot. Higher priority slots will come first in the reserved item slots, which will appear below the other slots. Negative priority items will appear on the left side of the screen, this is disabled in the core mod's config."));
             overridePurchasePrice = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "FlashlightSlotPriceOverride", 200, "[Host] Manually set the price for this item in the store. Setting 0 will force this item to be unlocked immediately after the game starts."));
             additionalItemsInSlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "AdditionalItemsInSlot", "", "[Host] Syntax: \"Item1,Item name2\" (without quotes). When adding items, use the item's name as it appears in game. Include spaces if there are spaces in the item name. Adding items that do not exist, or that are from a mod which is not enabled will not cause any problems.\nNOTE: IF YOU ARE USING A TRANSLATION MOD, YOU MAY NEED TO ADD THE TRANSLATED NAME OF ANY ITEM YOU WANT IN THIS SLOT."));
+
+            numUtilitySlots = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "NumUtilitySlots", 1, "[Host only] Sets the amount of reserved utility slots. Consider changing the priority if the priority of additional utility slots conflicts with other slots."));
+            overrideExtraAmmoSlotPriceIncrease = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "ExtraUtilitySlotsPriceIncreaseOverride", 20, "[Host only] If multiple utility slots are added, and purchasing slots is enabled, the price for each additional utility slot will go up by this amount."));
+            removeItemsFromSlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "RemoveItemsFromSlot", "", "[Host only] Syntax: \"Item1,Item name2\" (without quotes). Removes the specified items from this reserved item slot.When removing items, use the item's name as it appears in game. Include spaces if there are spaces in the item name. Adding items that do not exist, or that are from a mod which is not enabled will not cause any problems.\nCURRENT ITEMS IN SLOT: \"Extension ladder\", \"Lockpicker\", \"Jetpack\", \"Stun grenade\", \"Homemade flashbang\", \"TZP-Inhalant\", \"Radar-booster\", \"Remote Radar\", \"Utility Belt\", \"Hacking Tool\", \"Pinger\", \"Portable Tele\", \"Advanced Portable Tele\", \"Peeper\", \"Medkit\", \"Binoculars\", \"Mapper\", \"Toothpaste\" (you got a problem with toothpaste??)"));
+
+            disableUtilitySlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "DisableUtilitySlot", false, "[Host only] Disables the utility slot. Use this if you only want the reserved key slot."));
+            addKeySlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "AddKeySlot", false, "[Host only] Adds a reserved item slot for the key item. By default, the slot will appear on the left side of the screen, unless given a positive item slot priority."));
+            overrideKeySlotPriority = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "KeySlotPriorityOverride", -40, "[Host only] Manually set the priority for the key item slot. Higher priority slots will come first in the reserved item slots, which will appear below the other slots. Negative priority items will appear on the left side of the screen, this is disabled in the core mod's config."));
+            overrideKeySlotPrice = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "KeySlotPriceOverride", 50, "[Host only] Manually set the price for the key item in the store. Setting 0 will force this item to be unlocked immediately after the game starts."));
+            moveLockpickerToKeySlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "MoveLockpickerToKeySlot", false, "[Host only] Moves the lockpicker to the key slot. This setting will do nothing if the reserved key slot is disabled in the config."));
+            addAdditionalItemsToKeySlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "AdditionalItemsInKeySlot", "", "[Host only] Syntax: \"Item1,Item name2\" (without quotes). When adding items, use the item's name as it appears in game. Include spaces if there are spaces in the item name. Adding items that do not exist, or that are from a mod which is not enabled will not cause any problems.\nNOTE: IF YOU ARE USING A TRANSLATION MOD, YOU MAY NEED TO ADD THE TRANSLATED NAME OF ANY ITEM YOU WANT IN THIS SLOT."));
+            sprayPaintCapacityMultiplier = AddConfigEntry(LethalBelt.Instance.Config.Bind("Client-side", "SprayPaintCapacityMultiplier", 10f, "Extends the max capacity of spraypaint cans by this multiplier. This setting will soon be host only, and will sync with all non-host clients."));
+            overrideItemSlotPriority = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "SprayPaintPriorityOverride", 25, "Manually set the priority for this item slot. Higher priority slots will come first in the reserved item slots, which will appear below the other slots. Negative priority items will appear on the left side of the screen, this is disabled in the core mod's config."));
+            overridePurchasePrice = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "SprayPaintSlotPriceOverride", 50, "Manually set the price for this item in the store. Setting 0 will force this item to be unlocked immediately after the game starts."));
+            additionalItemsInSlot = AddConfigEntry(LethalBelt.Instance.Config.Bind("Server-side", "AdditionalItemsInSlot", "", "Syntax: \"Item1,Item name2\" (without quotes). When adding items, use the item's name as it appears in game. Include spaces if there are spaces in the item name. Adding items that do not exist, or that are from a mod which is not enabled will not cause any problems.\nNOTE: IF YOU ARE USING A TRANSLATION MOD, YOU MAY NEED TO ADD THE TRANSLATED NAME OF ANY ITEM YOU WANT IN THIS SLOT."));
+
 
             additionalItemsInSlot.Value = additionalItemsInSlot.Value.Replace(", ", ",");
 
@@ -34,7 +63,8 @@ namespace LethalBelt.Config {
         }
 
         public static string[] ParseAdditionalItems() => ReservedItemSlotCore.Config.ConfigSettings.ParseItemNames(additionalItemsInSlot.Value);
-
+        public static string[] ParseRemoveItems() => ReservedItemSlotCore.Config.ConfigSettings.ParseItemNames(removeItemsFromSlot.Value);
+        public static string[] ParseAdditionalKeyItems() => ReservedItemSlotCore.Config.ConfigSettings.ParseItemNames(addAdditionalItemsToKeySlot.Value);
 
         public static void TryRemoveOldConfigSettings()
         {
