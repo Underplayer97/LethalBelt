@@ -68,8 +68,14 @@
       <Reference Include="ReservedItemSlotCore">
         <HintPath>..\LethalModReferences\ReservedItemSlotCore.dll</HintPath>
       </Reference>
+      <Reference Include="Unity.Netcode.Runtime">
+        <HintPath>..\LethalCoreFiles\Unity.Netcode.Runtime.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\LethalCoreFiles\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AssetBundleModule">
+        <HintPath>..\LethalCoreFiles\UnityEngine.AssetBundleModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>..\LethalCoreFiles\UnityEngine.CoreModule.dll</HintPath>
